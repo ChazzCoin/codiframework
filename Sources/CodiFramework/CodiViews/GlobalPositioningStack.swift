@@ -37,7 +37,7 @@ public class GlobalPositioning: ObservableObject {
     }
 
     // Function to get coordinates for specified area
-    func getCoordinate(for area: ScreenArea) -> CGPoint {
+    public func getCoordinate(for area: ScreenArea) -> CGPoint {
         switch area {
             case .center:
                 return CGPoint(x: screenSize.width / 2, y: screenSize.height / 2)
@@ -57,7 +57,7 @@ public class GlobalPositioning: ObservableObject {
     }
     
     // Function to get coordinates for specified area with an optional offset
-    func getCoordinate(for area: ScreenArea, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> CGPoint {
+    public func getCoordinate(for area: ScreenArea, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> CGPoint {
         switch area {
             case .center:
                 return CGPoint(x: (screenSize.width / 2) + offsetX, y: (screenSize.height / 2) + offsetY)
@@ -78,7 +78,7 @@ public class GlobalPositioning: ObservableObject {
 
     
     // Function to get offsets for specified area as CGSize
-    func getOffset(for area: ScreenArea) -> CGSize {
+    public func getOffset(for area: ScreenArea) -> CGSize {
         switch area {
         case .center:
             return CGSize(width: screenSize.width / 2, height: screenSize.height / 2)
@@ -98,7 +98,7 @@ public class GlobalPositioning: ObservableObject {
     }
 }
 
-enum ScreenArea {
+public enum ScreenArea {
     case center, topRight, topLeft, bottomRight, bottomLeft, bottomCenter, topCenter
 }
 

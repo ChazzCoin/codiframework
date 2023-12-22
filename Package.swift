@@ -16,14 +16,19 @@ let package = Package(
             targets: ["CodiFramework"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/realm/realm-cocoa.git", from: "10.0.0"), // Replace "10.0.0" with the version you require
+        // Dependencies declare other packages that this package depends on. github.com/firebase/firebase-ios-sdk.git
+        .package(url: "https://github.com/realm/realm-cocoa.git", branch: "master"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.18.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "CodiFramework"),
+            name: "CodiFramework",
+            dependencies: [
+                .product(name: "RealmSwift", package: "realm-cocoa"),
+                .product(name: "FirebaseDatabase", package: "firebase-ios-sdk")
+            ]),
         .testTarget(
             name: "CodiFrameworkTests",
             dependencies: ["CodiFramework"]),
