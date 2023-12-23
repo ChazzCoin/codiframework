@@ -9,6 +9,25 @@ import Foundation
 import SwiftUI
 import Combine
 
+
+public struct GlobalPositioningStack<Content: View>: View {
+    public let content: (GeometryProxy, GlobalPositioning) -> Content
+
+    public init(@ViewBuilder content: @escaping (GeometryProxy, GlobalPositioning) -> Content) {
+        self.content = content
+    }
+
+    @State public var gps = GlobalPositioning()
+    
+    public var body: some View {
+        GeometryReader { geometry in
+            content(geometry, gps)
+        }.frame(maxWidth: gps.screenSize.width, maxHeight: gps.screenSize.height)
+            .ignoresSafeArea(.all)
+            .background(Color.clear)
+    }
+}
+
 public class GlobalPositioning: ObservableObject {
     // Properties to store screen size and safe area insets
     @State public var screenPaddingX: CGFloat = 50
@@ -102,22 +121,6 @@ public enum ScreenArea {
     case center, topRight, topLeft, bottomRight, bottomLeft, bottomCenter, topCenter
 }
 
-public struct GlobalPositioningStack<Content: View>: View {
-    public let content: (GeometryProxy, GlobalPositioning) -> Content
 
-    public init(@ViewBuilder content: @escaping (GeometryProxy, GlobalPositioning) -> Content) {
-        self.content = content
-    }
-
-    @State public var gps = GlobalPositioning()
-    
-    public var body: some View {
-        GeometryReader { geometry in
-            content(geometry, gps)
-        }.frame(maxWidth: gps.screenSize.width, maxHeight: gps.screenSize.height)
-            .ignoresSafeArea(.all)
-            .background(Color.clear)
-    }
-}
 
 
